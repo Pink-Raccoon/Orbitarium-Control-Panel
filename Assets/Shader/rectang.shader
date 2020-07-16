@@ -1,4 +1,4 @@
-﻿Shader "Unlit/projection"
+﻿Shader "Unlit/rectang"
 {
     Properties
     {
@@ -50,27 +50,27 @@
 				float angle = atan2(coord.y, coord.x) + PI;
 
 				float lat = angle;
-				float lon = 2 * acos(radius / 2.) -PI / 2;
+				float lon = 2 * acos(radius / 2.) - PI / 2;
 				return float2(lat, lon);
 			}
 
-            fixed4 frag (v2f i) : SV_Target	
-            {
+			fixed4 frag(v2f i) : SV_Target
+			{
 				float2 coord = azimuthalToEquirectangular(i.uv);
-
-				// equirectangular to mercator
 				float x = coord.x;
-				float y = log(tan(PI / 4. + coord.y / 2.));
+				float y = coord.y;
 
+				// proper alignment on the unit circle for the x / y coordinates
 				x = x / (PI * 2);
-				y = (y + PI) / (PI * 2);
+				y = (2 * y + PI) / (PI * 2);
 
-				fixed4 col = tex2D(_MainTex, float2(x,y));
+                // sample the texture
+                fixed4 col = tex2D(_MainTex, float2(x,y));
 
 				// everything outside our projections sould be white
 				col = length(i.uv * 2 - 1) > 1 ? 1 : col;
 
-				return col;
+                return col;
             }
             ENDCG
         }
