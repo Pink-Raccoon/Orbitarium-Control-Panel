@@ -16,7 +16,7 @@ public enum AdjustAction
     MIRROR
 }
 
-public class ProjectionManager
+public class ProjectionManager : MonoBehaviour
 {
     private LogManager log;
     private Process manyCamProc;
@@ -27,6 +27,9 @@ public class ProjectionManager
     private Camera projectorCamera2;
     private Camera projectorCamera1preview;
     private Camera projectorCamera2preview;
+
+    void Start() {
+    }
 
     public ProjectionManager(LogManager log)
     {
@@ -43,14 +46,12 @@ public class ProjectionManager
 
     public void SetupInputView()
     {
-        var resX = PlayerPrefs.GetInt("resX");
-        var resY = PlayerPrefs.GetInt("resY");
-        var aspectX = Convert.ToSingle(PlayerPrefs.GetInt("aspectX"));
-        var aspectY = Convert.ToSingle(PlayerPrefs.GetInt("aspectY"));
+        var inputResX = PlayerPrefs.GetInt("inputResX");
+        var inputResY = PlayerPrefs.GetInt("inputResY");
         //setting aspect ratio
-        inputCamera.aspect = aspectX / aspectY;
+        inputCamera.aspect = Convert.ToSingle(inputResX) / Convert.ToSingle(inputResY);
         var inputImagePosition = new Vector3(4000, 0, -1000);
-        var inputImageSize = new Vector2(resX, resY);
+        var inputImageSize = new Vector2(inputResX, inputResY);
         //setting image position
         inputImage.rectTransform.position = inputImagePosition;
         //setting image size
@@ -64,7 +65,7 @@ public class ProjectionManager
         var imgPosz = inputImage.transform.position.z;
         //calculate and set view angle of camera
         var b = Math.Abs(camPosz - imgPosz);
-        var a = resY / 2;
+        var a = inputResY / 2;
         var c = Pythagoras(a, b);
         var angle = Convert.ToSingle(CalculateAngle(a, c) * 2);
         inputCamera.fieldOfView = angle;
@@ -274,8 +275,18 @@ public class ProjectionManager
         log.LogWrite("ManyCam found!");
         //getting cam feed of manycam
         WebCamTexture tex = new WebCamTexture(devices[manyCamId].name);
+        
         inputImage.texture = tex;
         transformedImage.texture = tex;
+        
         tex.Play();
+        UnityEngine.Debug.Log(tex.GetPixels().Length);
     }
+
+    public void Update()
+    {
+        //UnityEngine.Debug.Log("update!");
+    }
+
+    
 }

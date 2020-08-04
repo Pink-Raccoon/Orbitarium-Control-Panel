@@ -19,7 +19,7 @@ public class ApplicationManager : MonoBehaviour
     {
         log = new LogManager();
         browserManager = new BrowserManager(log);
-        projectionManager = new ProjectionManager(log);
+        //projectionManager = new ProjectionManager(log);
         settings = new SettingsManager(log);
         settings.LoadSettings();
     }

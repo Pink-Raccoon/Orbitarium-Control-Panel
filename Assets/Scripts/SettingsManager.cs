@@ -13,7 +13,8 @@ public class SettingsManager
     { 
         { "resX", "resolution X" },
         { "resY", "resolution Y" },
-        { "ip", "ip address" }
+        { "inputResX", "input resolution x" },
+        { "inputResY", "input resolution y" }
     };
 
     private readonly int MAX_RES = 8000;
@@ -31,7 +32,8 @@ public class SettingsManager
         {
             int resX = GetResolution(GameObject.Find("resX").GetComponent<InputField>().text);
             int resY = GetResolution(GameObject.Find("resY").GetComponent<InputField>().text);
-            string ip = ValidateIP(GameObject.Find("ip").GetComponent<InputField>().text);
+            int inputResX = GetResolution(GameObject.Find("inputResX").GetComponent<InputField>().text);
+            int inputResY = GetResolution(GameObject.Find("inputResY").GetComponent<InputField>().text);
             var aspects = CalculateAspectRatio(resX, resY);
             var aspectX = aspects.Item1;
             var aspectY = aspects.Item2;
@@ -39,9 +41,9 @@ public class SettingsManager
             PlayerPrefs.SetInt("resY", resY);
             PlayerPrefs.SetInt("aspectX", aspectX);
             PlayerPrefs.SetInt("aspectY", aspectY);
-            PlayerPrefs.SetString("ip", ip);
+            PlayerPrefs.SetInt("inputResX", inputResX);
+            PlayerPrefs.SetInt("inputResY", inputResY);
             PlayerPrefs.Save();
-            
         } catch (Exception e)
         {
             log.LogWrite(e.Message);
@@ -55,8 +57,7 @@ public class SettingsManager
 
     private string ValidateIP(string address)
     {
-        IPAddress ip;
-        bool validIP = IPAddress.TryParse(address, out ip);
+        bool validIP = IPAddress.TryParse(address, out IPAddress ip);
         if (validIP)
         {
             return address;
@@ -70,6 +71,8 @@ public class SettingsManager
     {
         int resx = 0;
         int resy = 0;
+        int inputresx = 0;
+        int inputresy = 0;
         if (PlayerPrefs.HasKey("resX"))
         {
             resx = PlayerPrefs.GetInt("resX");
@@ -80,10 +83,17 @@ public class SettingsManager
             resy = PlayerPrefs.GetInt("resY");
             GameObject.Find("resY").GetComponent<InputField>().text = resy.ToString();
         }
-        if (PlayerPrefs.HasKey("ip"))
+        if (PlayerPrefs.HasKey("inputResX"))
         {
-            GameObject.Find("ip").GetComponent<InputField>().text = PlayerPrefs.GetString("ip").ToString();
+            inputresx = PlayerPrefs.GetInt("inputResX");
+            GameObject.Find("inputResX").GetComponent<InputField>().text = inputresx.ToString();
         }
+        if (PlayerPrefs.HasKey("inputResY"))
+        {
+            inputresy = PlayerPrefs.GetInt("inputResY");
+            GameObject.Find("inputResY").GetComponent<InputField>().text = inputresy.ToString();
+        }
+
         CalculateAspectRatio(resx, resy);
     }
 
@@ -100,8 +110,7 @@ public class SettingsManager
 
     private int GetResolution(string resString)
     {
-        int res;
-        bool parseSuccessful = Int32.TryParse(resString, out res);
+        bool parseSuccessful = Int32.TryParse(resString, out int res);
         if (!parseSuccessful)
         {
             var ex = new FormatException("Could not save the resolution settings.\nPlease specify numbers in the section 'Projector resolution'");
@@ -129,7 +138,7 @@ public class SettingsManager
 
     private (int,int) CalculateAspectRatio(int resx, int resy)
     {
-        var ggt = calcGgt(resx, resy);
+        var ggt = CalcGgt(resx, resy);
         var aspectx = resx / ggt;
         var aspecty = resy / ggt;
         if (aspectx < 2 * aspecty)
@@ -144,7 +153,7 @@ public class SettingsManager
         return (aspectx, aspecty);
     }
 
-    private int calcGgt(int res1, int res2)
+    private int CalcGgt(int res1, int res2)
     {
         int number1 = res1;
         int number2 = res2;
