@@ -21,6 +21,7 @@ public class ApplicationHandler : MonoBehaviour
     void Awake()
     {
         Debug.Log("started application!");
+        LogHandler.Log.logText.text = "lol";   //.WriteMessage("started application!");
         //renderHandler = GameObject.Find("RenderingObject");
         //renderHandler.SetActive(false);
         var settingsHandler = GameObject.Find("ApplicationHandlerObject").GetComponent<SettingsHandler>();

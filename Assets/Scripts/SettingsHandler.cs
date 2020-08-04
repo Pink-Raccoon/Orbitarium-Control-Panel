@@ -49,9 +49,8 @@ public class SettingsHandler : MonoBehaviour
         }
         catch (Exception e)
         {
-            //log.LogWrite(e.Message);
-            //log.ShowSaveSettingsInformation(e.Message, true);
-            //log.LogWrite("Error. Settings not saved.");
+            LogHandler.Log.WriteMessage(e.Message);
+            LogHandler.Log.WriteMessage("Error. Settings not saved.");
             return;
         }
     }
@@ -142,7 +141,7 @@ public class SettingsHandler : MonoBehaviour
         else
         {
             aspectInfo.color = Color.green;
-            //log.LogWrite("Warning: Detected anomal aspect ratio " + aspectx + ":" + aspecty);
+            LogHandler.Log.WriteMessage("Warning: Detected anomal aspect ratio " + aspectx + ":" + aspecty);
         }
         aspectInfo.text = aspectx + " : " + aspecty;
     }
