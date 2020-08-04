@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ApplicationHandler : MonoBehaviour
 {
+    private GameObject renderHandler;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +21,10 @@ public class ApplicationHandler : MonoBehaviour
     void Awake()
     {
         Debug.Log("started application!");
-        GameObject.Find("RenderingObject").SetActive(false);
+        //renderHandler = GameObject.Find("RenderingObject");
+        //renderHandler.SetActive(false);
+        var settingsHandler = GameObject.Find("ApplicationHandlerObject").GetComponent<SettingsHandler>();
+        settingsHandler.LoadSettings();
+        //renderHandler.SetActive(true);
     }
-
-    
 }

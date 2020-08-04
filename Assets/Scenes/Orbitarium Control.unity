@@ -2079,6 +2079,8 @@ GameObject:
   m_Component:
   - component: {fileID: 377554108}
   - component: {fileID: 377554107}
+  - component: {fileID: 377554109}
+  - component: {fileID: 377554110}
   m_Layer: 0
   m_Name: ApplicationHandlerObject
   m_TagString: Untagged
@@ -2112,6 +2114,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &377554109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377554106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef7dc1b0d24c424dbc270f05b5c60b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &377554110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377554106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca86017af8263744b1efcc836c7b757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &379168221
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,6 +2245,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2a38175f07a2f469d7930ad25ef851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputImage: {fileID: 0}
+  transformedImage: {fileID: 0}
+  inputCamera: {fileID: 0}
+  projectorCamera1: {fileID: 0}
+  projectorCamera2: {fileID: 0}
+  projectorCamera1preview: {fileID: 0}
+  projectorCamera2preview: {fileID: 0}
 --- !u!4 &445005248
 Transform:
   m_ObjectHideFlags: 0
@@ -3467,8 +3500,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964161572}
-        m_MethodName: AdjustProjector
+      - m_Target: {fileID: 377554110}
+        m_MethodName: AdjustProjection
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4646,8 +4679,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964161572}
-        m_MethodName: AdjustProjector
+      - m_Target: {fileID: 377554110}
+        m_MethodName: AdjustProjection
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5680,84 +5713,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214429990}
   m_CullTransparentMesh: 0
---- !u!1 &1222271717
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1222271718}
-  - component: {fileID: 1222271720}
-  - component: {fileID: 1222271719}
-  m_Layer: 5
-  m_Name: inputAspectLabel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1222271718
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222271717}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1943162748}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 372.49, y: -51}
-  m_SizeDelta: {x: 127.29605, y: 23.324085}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1222271719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222271717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'Aspect Ratio:'
---- !u!222 &1222271720
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222271717}
-  m_CullTransparentMesh: 0
 --- !u!1 &1243019925
 GameObject:
   m_ObjectHideFlags: 0
@@ -6203,7 +6158,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Input resolution (in pixels)
+  m_Text: Input feed resolution (in pixels)
 --- !u!222 &1311691554
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7035,7 +6990,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964161572}
+      - m_Target: {fileID: 377554109}
         m_MethodName: SaveSettings
         m_Mode: 1
         m_Arguments:
@@ -7249,8 +7204,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964161572}
-        m_MethodName: AdjustProjector
+      - m_Target: {fileID: 377554110}
+        m_MethodName: AdjustProjection
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7456,8 +7411,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 701804401}
   m_HandleRect: {fileID: 701804400}
   m_Direction: 2
-  m_Value: 0.999644
-  m_Size: 0.33956307
+  m_Value: 0.9996441
+  m_Size: 0.33956313
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8376,84 +8331,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791293046}
   m_CullTransparentMesh: 0
---- !u!1 &1806239389
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1806239390}
-  - component: {fileID: 1806239392}
-  - component: {fileID: 1806239391}
-  m_Layer: 5
-  m_Name: inputAspectInfo
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1806239390
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806239389}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1943162748}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 476.6, y: -50.486}
-  m_SizeDelta: {x: 80.92685, y: 23.324085}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1806239391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806239389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 
---- !u!222 &1806239392
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806239389}
-  m_CullTransparentMesh: 0
 --- !u!1 &1812286542
 GameObject:
   m_ObjectHideFlags: 0
@@ -8952,8 +8829,6 @@ RectTransform:
   - {fileID: 454770324}
   - {fileID: 726503588}
   - {fileID: 2136651362}
-  - {fileID: 1222271718}
-  - {fileID: 1806239390}
   m_Father: {fileID: 752815725}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9081,8 +8956,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964161572}
-        m_MethodName: AdjustProjector
+      - m_Target: {fileID: 377554110}
+        m_MethodName: AdjustProjection
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9158,6 +9033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375323c4117a68b4a8836a8fca2d1f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectionManager: {fileID: 0}
 --- !u!4 &1964161573
 Transform:
   m_ObjectHideFlags: 0
@@ -9481,8 +9357,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964161572}
-        m_MethodName: AdjustProjector
+      - m_Target: {fileID: 377554110}
+        m_MethodName: AdjustProjection
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

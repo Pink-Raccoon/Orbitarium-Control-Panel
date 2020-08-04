@@ -1,33 +1,32 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsManager
+public class SettingsHandler : MonoBehaviour
 {
-    private readonly LogManager log;
-    private readonly IDictionary<string, string> requiredSettings = new Dictionary<string, string>()
-    { 
-        { "resX", "resolution X" },
-        { "resY", "resolution Y" },
-        { "inputResX", "input resolution x" },
-        { "inputResY", "input resolution y" }
-    };
+    private IDictionary<string, string> requiredSettings;
 
-    private readonly int MAX_RES = 8000;
-    private readonly int MIN_RES = 100;
-
-    public SettingsManager(LogManager log)
+    void Start()
     {
-        this.log = log;
+        requiredSettings = new Dictionary<string, string>()
+            {
+                { "resX", "resolution X" },
+                { "resY", "resolution Y" },
+                { "inputResX", "input resolution x" },
+                { "inputResY", "input resolution y" }
+            };
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     public void SaveSettings()
     {
-        log.LogWrite("Saving settings...");
         try
         {
             int resX = GetResolution(GameObject.Find("resX").GetComponent<InputField>().text);
@@ -44,26 +43,16 @@ public class SettingsManager
             PlayerPrefs.SetInt("inputResX", inputResX);
             PlayerPrefs.SetInt("inputResY", inputResY);
             PlayerPrefs.Save();
-        } catch (Exception e)
-        {
-            log.LogWrite(e.Message);
-            log.ShowSaveSettingsInformation(e.Message, true);
-            log.LogWrite("Error. Settings not saved.");
-            return;
+            var infoText = GameObject.Find("infoText").GetComponent<Text>();
+            infoText.color = Color.green;
+            infoText.text = "Settings successfully saved";
         }
-        log.ShowSaveSettingsInformation("Settings successfully saved!", false);
-        log.LogWrite("Settings successfully saved!");
-    }
-
-    private string ValidateIP(string address)
-    {
-        bool validIP = IPAddress.TryParse(address, out IPAddress ip);
-        if (validIP)
+        catch (Exception e)
         {
-            return address;
-        } else
-        {
-            throw new FormatException("Entered IP Address is invalid. Please specify a valid IP-Address in settings.");
+            //log.LogWrite(e.Message);
+            //log.ShowSaveSettingsInformation(e.Message, true);
+            //log.LogWrite("Error. Settings not saved.");
+            return;
         }
     }
 
@@ -93,7 +82,6 @@ public class SettingsManager
             inputresy = PlayerPrefs.GetInt("inputResY");
             GameObject.Find("inputResY").GetComponent<InputField>().text = inputresy.ToString();
         }
-
         CalculateAspectRatio(resx, resy);
     }
 
@@ -116,40 +104,15 @@ public class SettingsManager
             var ex = new FormatException("Could not save the resolution settings.\nPlease specify numbers in the section 'Projector resolution'");
             throw ex;
         }
-        if (IsValidResolution(res))
-        {
-            return res;
-        } else
-        {
-            return -1;
-        }
+        return res;
     }
 
-    private bool IsValidResolution(int res)
-    {
-
-        if(res > MAX_RES || res < MIN_RES)
-        {
-            var ex = new ArgumentOutOfRangeException("Specified resolution '" + res + "' is out of range.\nPlease specify a resolution between 100 and 8000 pixels.");
-            throw ex;
-        }
-        return true;
-    }
-
-    private (int,int) CalculateAspectRatio(int resx, int resy)
+    private (int, int) CalculateAspectRatio(int resx, int resy)
     {
         var ggt = CalcGgt(resx, resy);
         var aspectx = resx / ggt;
         var aspecty = resy / ggt;
-        if (aspectx < 2 * aspecty)
-        {
-            log.ShowAspectRatio(aspectx, aspecty, true);
-        }
-        else
-        {
-            log.ShowAspectRatio(aspectx, aspecty, false);
-            log.LogWrite("Warning: Detected anomal aspect ratio " + aspectx + ":" + aspecty);
-        }
+        DisplayAspectInfo(aspectx, aspecty);
         return (aspectx, aspecty);
     }
 
@@ -168,4 +131,21 @@ public class SettingsManager
         ggt = number2;
         return ggt;
     }
+
+    private void DisplayAspectInfo(int aspectx, int aspecty)
+    {
+        var aspectInfo = GameObject.Find("aspectInfo").GetComponent<Text>();
+        if (aspectx < 2 * aspecty)
+        {
+            aspectInfo.color = Color.green;
+        }
+        else
+        {
+            aspectInfo.color = Color.green;
+            //log.LogWrite("Warning: Detected anomal aspect ratio " + aspectx + ":" + aspecty);
+        }
+        aspectInfo.text = aspectx + " : " + aspecty;
+    }
+
+
 }
