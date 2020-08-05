@@ -133,7 +133,7 @@ public class RenderHandler : MonoBehaviour
 
     public void ActivateDisplays()
     {
-        LogHandler.Log.WriteMessage("Recognized Displays:");
+        LogHandler.WriteMessage("Recognized Displays:");
         var displays = Display.displays;
         var resX = PlayerPrefs.GetInt("resX");
         var resY = PlayerPrefs.GetInt("resY");
@@ -178,7 +178,7 @@ public class RenderHandler : MonoBehaviour
         {
             throw new Exception("ManyCam not found! Please install ManyCam");
         }
-        LogHandler.Log.WriteMessage("ManyCam found!");
+        LogHandler.WriteMessage("ManyCam found!");
         //getting cam feed of manycam
         WebCamTexture tex = new WebCamTexture(devices[manyCamId].name);
 

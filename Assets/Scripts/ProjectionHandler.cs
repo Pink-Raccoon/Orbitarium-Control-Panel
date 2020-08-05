@@ -76,7 +76,7 @@ public class ProjectionHandler : MonoBehaviour
 
     private void MoveProjectorUp(Camera cam, int pixels)
     {
-        LogHandler.Log.WriteMessage("moving up by " + pixels);
+        LogHandler.WriteMessage("moving up by " + pixels);
         var position = cam.transform.position;
         var newPosition = new Vector3(position.x, position.y + pixels, position.z);
         cam.transform.position = newPosition;
@@ -84,7 +84,7 @@ public class ProjectionHandler : MonoBehaviour
 
     private void MoveProjectorDown(Camera cam, int pixels)
     {
-        LogHandler.Log.WriteMessage("moving down by " + pixels);
+        LogHandler.WriteMessage("moving down by " + pixels);
         var position = cam.transform.position;
         var newPosition = new Vector3(position.x, position.y - pixels, position.z);
         cam.transform.position = newPosition;
@@ -92,7 +92,7 @@ public class ProjectionHandler : MonoBehaviour
 
     private void MoveProjectorRight(Camera cam, int pixels)
     {
-        LogHandler.Log.WriteMessage("moving right by " + pixels);
+        LogHandler.WriteMessage("moving right by " + pixels);
         var position = cam.transform.position;
         var newPosition = new Vector3(position.x + pixels, position.y, position.z);
         cam.transform.position = newPosition;
@@ -100,7 +100,7 @@ public class ProjectionHandler : MonoBehaviour
 
     private void MoveProjectorLeft(Camera cam, int pixels)
     {
-        LogHandler.Log.WriteMessage("moving left by " + pixels);
+        LogHandler.WriteMessage("moving left by " + pixels);
         var position = cam.transform.position;
         var newPosition = new Vector3(position.x - pixels, position.y, position.z);
         cam.transform.position = newPosition;
@@ -108,7 +108,7 @@ public class ProjectionHandler : MonoBehaviour
 
     private void MirrorProjector(Camera cam)
     {
-        LogHandler.Log.WriteMessage("rotate by 180");
+        LogHandler.WriteMessage("rotate by 180");
         var rotation = cam.transform.rotation;
         float newZ;
         if (rotation.z == 180.0f)
