@@ -16,6 +16,10 @@ public class RenderHandler : MonoBehaviour
     private Camera projectorCamera2preview;
     private SettingsHandler settingsHandler;
     private WebCamTexture inputFeedTexture;
+    private Texture2D texture;
+    int pixelsToCut;
+    int inputResY;
+    Color[] color;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,10 @@ public class RenderHandler : MonoBehaviour
         projectorCamera2 = GameObject.Find("projector2").GetComponent<Camera>();
         projectorCamera1preview = GameObject.Find("projectorpreview1").GetComponent<Camera>();
         projectorCamera2preview = GameObject.Find("projectorpreview2").GetComponent<Camera>();
+        texture = new Texture2D(PlayerPrefs.GetInt("inputResY"), PlayerPrefs.GetInt("inputResY"));
+        pixelsToCut = (int)(PlayerPrefs.GetInt("inputResX") - PlayerPrefs.GetInt("inputResY")) / 2;
+        inputResY = PlayerPrefs.GetInt("inputResY");
+
     }
 
     // Update is called once per frame
@@ -36,14 +44,10 @@ public class RenderHandler : MonoBehaviour
         //Todo: 1. Überflüssige schwarze Balken wegschneiden ( PlayerPrefs.GetInt("inputResX", inputResX);)
         if (rendering)
         {
-            Debug.Log("rendering...");
-            Debug.Log(inputFeedTexture.height);
-            Debug.Log(inputFeedTexture.width);
-            int pixelsToCut = (int)(PlayerPrefs.GetInt("inputResX") - PlayerPrefs.GetInt("inputResY")) / 2;
-            Color[] color = (inputFeedTexture).GetPixels(pixelsToCut, 0, PlayerPrefs.GetInt("inputResY"), PlayerPrefs.GetInt("inputResY"));
-            Texture2D texture = new Texture2D(PlayerPrefs.GetInt("inputResY"), PlayerPrefs.GetInt("inputResY"));
+            color = inputFeedTexture.GetPixels(pixelsToCut, 0, inputResY, inputResY);
             texture.SetPixels(color);
-            inputImage.texture = texture;
+            texture.Apply();
+            //inputImage.texture = texture;
             transformedImage.texture = texture;
         }
     }
@@ -148,7 +152,8 @@ public class RenderHandler : MonoBehaviour
         var displays = Display.displays;
         var resX = PlayerPrefs.GetInt("resX");
         var resY = PlayerPrefs.GetInt("resY");
-        displays[1].Activate(resX, resY, 60);
+        displays[2].Activate(resX, resY, 60);
+        displays[3].Activate(resX, resY, 60);
         //Activate Display 2 and 3 for projector 1 and 2
         //for (int i = 0; i< displays.Length; i++)
         //{
