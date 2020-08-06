@@ -43,5 +43,10 @@ public class ApplicationHandler : MonoBehaviour
         
     }
 
+    public void Load()
+    {
+        BrowserHandler.StartDisplayDriver();
+    }
+
     
 }

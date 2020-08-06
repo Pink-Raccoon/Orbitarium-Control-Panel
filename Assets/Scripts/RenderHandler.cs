@@ -33,6 +33,7 @@ public class RenderHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Todo: 1. Überflüssige schwarze Balken wegschneiden ( PlayerPrefs.GetInt("inputResX", inputResX);)
         if (rendering)
         {
             Debug.Log("rendering...");
@@ -68,7 +69,7 @@ public class RenderHandler : MonoBehaviour
         //setting aspect ratio
         inputCamera.aspect = Convert.ToSingle(inputResX) / Convert.ToSingle(inputResY);
         var inputImagePosition = new Vector3(4000, 0, -1000);
-        var inputImageSize = new Vector2(inputResX, inputResY);
+        var inputImageSize = new Vector2(inputResY, inputResY);
         //setting image position
         inputImage.rectTransform.position = inputImagePosition;
         //setting image size

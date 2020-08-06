@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class AnimationInformation : MonoBehaviour
+public class AnimationInformation
 {
     public string AnimationKey { get; set; }
     public string AnimationName { get; set; }

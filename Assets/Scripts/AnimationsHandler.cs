@@ -11,6 +11,7 @@ public class AnimationsHandler : MonoBehaviour
     public static Dictionary<string, AnimationInformation> animationSummary { get; set; }
     public static Dropdown animationsDropdown = GameObject.Find("animationsDropdown").GetComponent<Dropdown>();
     public static Text animationDescription = GameObject.Find("animationDescription").GetComponent<Text>();
+    public static Button loadAnimationButton = GameObject.Find("loadAnimationButton").GetComponent<Button>();
 
     public static AnimationsHandler _instance;
     public static AnimationsHandler Instance
@@ -73,6 +74,7 @@ public class AnimationsHandler : MonoBehaviour
         animationDescription.text = description;
         animationsDropdown.AddOptions(animationDropdownList);
         animationsDropdown.interactable = true;
+        loadAnimationButton.interactable = true;
     }
 
     public static bool CheckAnimationDataAvailability()
@@ -90,6 +92,8 @@ public class AnimationsHandler : MonoBehaviour
         LogHandler.WriteMessage("SUCCESS: Animation Data Application online");
         return true;
     }
+
+
 
     
 }
