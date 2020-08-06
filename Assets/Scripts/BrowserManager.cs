@@ -10,16 +10,15 @@ public class BrowserManager
 {
     private IWebDriver displayBrowser;
     private IWebDriver contentBrowser;
-    private LogManager log;
 
-    public BrowserManager(LogManager log)
+    public BrowserManager()
     {
-        this.log = log;
+        
     }
 
     public void StartDisplayBrowser()
     {
-        log.LogWrite("Starting display driver...");
+        LogHandler.WriteMessage("Starting display driver...");
         //Configure chrome options (hide indication that browser is controlled by selenium).
         ChromeOptions options = new ChromeOptions();
         options.AddExcludedArgument("enable-automation");
@@ -36,7 +35,7 @@ public class BrowserManager
         displayBrowser.FindElement(By.Id("server")).SendKeys(PlayerPrefs.GetString("ip"));
         //connect
         displayBrowser.FindElement(By.Id("buttonLogin")).Click();
-        log.LogWrite("Display driver started successfully.");
+        LogHandler.WriteMessage("Display driver started successfully.");
         displayBrowser.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector("#toggleMenu")));
         //getting js for configuration of display driver
@@ -45,7 +44,7 @@ public class BrowserManager
         var script = GetScript(scriptPath);
         script += "$( document ).ready(function() {setUpDisplay(" + PlayerPrefs.GetInt("resx") + "," + PlayerPrefs.GetInt("resy") + ");})";
         ExecuteScriptOnDriver(script);
-        log.LogWrite("Display driver configured successfully.");
+        LogHandler.WriteMessage("Display driver configured successfully.");
     }
 
     private void ExecuteScriptOnDriver(string script)

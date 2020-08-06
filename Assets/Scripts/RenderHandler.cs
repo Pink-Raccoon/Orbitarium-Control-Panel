@@ -27,7 +27,7 @@ public class RenderHandler : MonoBehaviour
         projectorCamera1preview = GameObject.Find("projectorpreview1").GetComponent<Camera>();
         projectorCamera2preview = GameObject.Find("projectorpreview2").GetComponent<Camera>();
         //onlyif checksettings are ok!!!
-        SetupWebcamTexture();
+        //SetupWebcamTexture();
     }
 
     // Update is called once per frame
@@ -86,6 +86,7 @@ public class RenderHandler : MonoBehaviour
         var c = Pythagoras(a, b);
         var angle = Convert.ToSingle(CalculateAngle(a, c) * 2);
         inputCamera.fieldOfView = angle;
+        LogHandler.WriteMessage("SUCCESS: Input feed texture initialized.");
     }
 
     public void SetupTransformedTexture()
@@ -129,6 +130,7 @@ public class RenderHandler : MonoBehaviour
         projectorCamera2.fieldOfView = angle;
         projectorCamera1preview.fieldOfView = angle;
         projectorCamera2preview.fieldOfView = angle;
+        LogHandler.WriteMessage("SUCCESS: Transformed texture initialized.");
     }
 
     public void ActivateDisplays()
