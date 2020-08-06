@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using UnityEngine;
 
 public class BrowserHandler : MonoBehaviour
@@ -35,51 +36,34 @@ public class BrowserHandler : MonoBehaviour
     public static void StartDisplayDriver()
     {
         LogHandler.WriteMessage("Starting display driver...");
-        //Configure chrome options (hide indication that browser is controlled by selenium).
+        //set profile so that driver does not have to be configured
+        var pathLocalAppData = Environment.GetEnvironmentVariable("LocalAppData");
+        var chromeDefaultProfilePath = Path.Combine(pathLocalAppData, @"Google\Chrome\User Data");
+
+        //Configure chrome options (hide indication that browser is controlled by selenium, set default user profile).
         ChromeOptions options = new ChromeOptions();
+        options.AddArgument("user-data-dir=" + chromeDefaultProfilePath);
         options.AddExcludedArgument("enable-automation");
         options.AddAdditionalCapability("useAutomationExtension", false);
+        
         //navigate to url
         displayBrowser = new ChromeDriver(options);
         displayBrowser.Navigate().GoToUrl("http://viewer.spacedesk.net/");
         //wait for element "server" to be present
         WebDriverWait wait = new WebDriverWait(displayBrowser, TimeSpan.FromSeconds(10));
         wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector("#server")));
-        //clear ip field
-        displayBrowser.FindElement(By.Id("server")).Clear();
-        //write ip address address of network interface
-        displayBrowser.FindElement(By.Id("server")).SendKeys("127.0.0.1");
-        //connect
         displayBrowser.FindElement(By.Id("buttonLogin")).Click();
-        LogHandler.WriteMessage("Display driver started successfully.");
-        displayBrowser.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-        wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector("#toggleMenu")));
-        //getting js for configuration of display driver
-        var basePath = Directory.GetCurrentDirectory();
-        var scriptPath = basePath + @"\Assets\Scripts\js\displaydriver_config.js";
-        var script = GetScript(scriptPath);
-        script += "$( document ).ready(function() {setUpDisplay(" + PlayerPrefs.GetInt("resx") + "," + PlayerPrefs.GetInt("resy") + ");})";
-        ExecuteScriptOnDriver(script);
-        LogHandler.WriteMessage("Display driver configured successfully.");
+        Thread.Sleep(1000);
+        LogHandler.WriteMessage("SUCCESS: Display driver started");
     }
 
-    private static string GetScript(string scriptPath)
+    public void StartContentBrowser()
     {
-        string line;
-        string script = "";
-        StreamReader file = new System.IO.StreamReader(scriptPath);
-        while ((line = file.ReadLine()) != null)
-        {
-            script += line;
-        }
-        file.Close();
-        return script;
-    }
-
-    private static void ExecuteScriptOnDriver(string script)
-    {
-        IJavaScriptExecutor js = (IJavaScriptExecutor)displayBrowser;
-        js.ExecuteScript(script);
+        ChromeOptions options = new ChromeOptions();
+        options.AddExcludedArgument("enable-automation");
+        options.AddAdditionalCapability("useAutomationExtension", false);
+        contentBrowser = new ChromeDriver(options);
+        contentBrowser.Navigate().GoToUrl("http://localhost/orbitarium.ba/welcome");
     }
 
 
