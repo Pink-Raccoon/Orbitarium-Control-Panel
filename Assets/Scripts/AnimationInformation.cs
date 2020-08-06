@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[Serializable]
+public class AnimationInformation : MonoBehaviour
+{
+    public string AnimationKey { get; set; }
+    public string AnimationName { get; set; }
+    public string AnimationDescription { get; set; }
+}

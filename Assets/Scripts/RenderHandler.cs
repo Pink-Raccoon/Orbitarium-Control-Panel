@@ -19,6 +19,7 @@ public class RenderHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         inputImage = GameObject.Find("inputImage").GetComponent<RawImage>();
         transformedImage = GameObject.Find("transformedImage").GetComponent<RawImage>();
         inputCamera = GameObject.Find("inputCamera").GetComponent<Camera>();
@@ -26,8 +27,7 @@ public class RenderHandler : MonoBehaviour
         projectorCamera2 = GameObject.Find("projector2").GetComponent<Camera>();
         projectorCamera1preview = GameObject.Find("projectorpreview1").GetComponent<Camera>();
         projectorCamera2preview = GameObject.Find("projectorpreview2").GetComponent<Camera>();
-        //onlyif checksettings are ok!!!
-        //SetupWebcamTexture();
+        LogHandler.WriteMessage("DEBUG: RenderHandler init done");
     }
 
     // Update is called once per frame

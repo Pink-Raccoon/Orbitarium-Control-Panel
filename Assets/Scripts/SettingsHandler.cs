@@ -6,11 +6,7 @@ using UnityEngine.UI;
 
 public class SettingsHandler : MonoBehaviour
 {
-    private IDictionary<string, string> requiredSettings;
-
-    void Start()
-    {
-        requiredSettings = new Dictionary<string, string>()
+    private IDictionary<string, string> requiredSettings = new Dictionary<string, string>()
             {
                 { "resX", "resolution X" },
                 { "resY", "resolution Y" },
@@ -18,6 +14,9 @@ public class SettingsHandler : MonoBehaviour
                 { "inputResY", "input resolution y" },
                 { "apiUri", "uri of animation data application"}
             };
+
+    void Start()
+    {
 
     }
 
@@ -190,9 +189,8 @@ public class SettingsHandler : MonoBehaviour
         }
         catch (Exception e)
         {
-            LogHandler.WriteMessage("FAIL: Initialization of background objects failed.\nPlease verify your settings!\nMessage is:\n" + e.Message);
+            LogHandler.WriteMessage("FAIL: Initialization of background objects failed. Please verify your settings! Message is: " + e.StackTrace);
             LogHandler.DisplayInformation("Initialization of background objects failed. See messages.", Color.red);
         }
     }
-
 }

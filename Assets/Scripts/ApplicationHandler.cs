@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,8 +23,18 @@ public class ApplicationHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitializeApplication();
+    }
+
+    private void InitializeApplication()
+    {
         var settingsHandler = GameObject.Find("ApplicationHandlerObject").GetComponent<SettingsHandler>();
         settingsHandler.ApplySettingsToInternalObjects();
+        if (AnimationsHandler.CheckAnimationDataAvailability())
+        {
+            AnimationsHandler.GetAnimationsSummary();
+        }
+        
     }
 
     // Update is called once per frame
