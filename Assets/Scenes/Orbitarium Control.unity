@@ -7189,8 +7189,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SetupInternalViews
+      - m_Target: {fileID: 107659601}
+        m_MethodName: RenderManyCam
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7741,7 +7741,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 701804400}
   m_Direction: 2
   m_Value: 1.0000002
-  m_Size: 0.34311408
+  m_Size: 0.34311405
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

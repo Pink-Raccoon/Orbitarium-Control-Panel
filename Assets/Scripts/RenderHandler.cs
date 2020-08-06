@@ -15,6 +15,7 @@ public class RenderHandler : MonoBehaviour
     private Camera projectorCamera1preview;
     private Camera projectorCamera2preview;
     private SettingsHandler settingsHandler;
+    private WebCamTexture inputFeedTexture;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,6 @@ public class RenderHandler : MonoBehaviour
         projectorCamera2 = GameObject.Find("projector2").GetComponent<Camera>();
         projectorCamera1preview = GameObject.Find("projectorpreview1").GetComponent<Camera>();
         projectorCamera2preview = GameObject.Find("projectorpreview2").GetComponent<Camera>();
-        LogHandler.WriteMessage("DEBUG: RenderHandler init done");
     }
 
     // Update is called once per frame
@@ -37,6 +37,14 @@ public class RenderHandler : MonoBehaviour
         if (rendering)
         {
             Debug.Log("rendering...");
+            Debug.Log(inputFeedTexture.height);
+            Debug.Log(inputFeedTexture.width);
+            int pixelsToCut = (int)(PlayerPrefs.GetInt("inputResX") - PlayerPrefs.GetInt("inputResY")) / 2;
+            Color[] color = (inputFeedTexture).GetPixels(pixelsToCut, 0, PlayerPrefs.GetInt("inputResY"), PlayerPrefs.GetInt("inputResY"));
+            Texture2D texture = new Texture2D(PlayerPrefs.GetInt("inputResY"), PlayerPrefs.GetInt("inputResY"));
+            texture.SetPixels(color);
+            inputImage.texture = texture;
+            transformedImage.texture = texture;
         }
     }
 
@@ -183,13 +191,15 @@ public class RenderHandler : MonoBehaviour
         }
         LogHandler.WriteMessage("ManyCam found!");
         //getting cam feed of manycam
-        WebCamTexture tex = new WebCamTexture(devices[manyCamId].name);
+        inputFeedTexture = new WebCamTexture(devices[manyCamId].name, PlayerPrefs.GetInt("inputResX"), PlayerPrefs.GetInt("inputResY"));
 
-        inputImage.texture = tex;
-        transformedImage.texture = tex;
 
-        tex.Play();
-        Debug.Log(tex.GetPixels().Length);
+        //inputImage.texture = tex;
+        //transformedImage.texture = tex;
+
+        inputFeedTexture.Play();
+        rendering = true;
+        //Debug.Log(inputFeedTexture.GetPixels().Length);
     }
 
     private double Pythagoras(double a, double b)
