@@ -48,5 +48,13 @@ public class ApplicationHandler : MonoBehaviour
         BrowserHandler.StartDisplayDriver();
     }
 
-    
+    public void StopAnimation()
+    {
+        AnimationsHandler.StopAnimation();
+    }
+
+    public void ContinueAnimation()
+    {
+        AnimationsHandler.ContinueAnimation();
+    }
 }

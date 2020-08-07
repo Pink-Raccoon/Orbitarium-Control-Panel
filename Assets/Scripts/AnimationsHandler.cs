@@ -77,6 +77,22 @@ public class AnimationsHandler : MonoBehaviour
         loadAnimationButton.interactable = true;
     }
 
+    public static async void StopAnimation() {
+        string message = await ApiHandler.StopAnimation();
+        if (message.Equals("stopped")) {
+            LogHandler.WriteMessage("Animation stopped");
+        }        
+    }
+
+    public static async void ContinueAnimation()
+    {
+        string message = await ApiHandler.ContinueAnimation();
+        if (message.Equals("continued"))
+        {
+            LogHandler.WriteMessage("Animation continued");
+        }
+    }
+
     public static bool CheckAnimationDataAvailability()
     {
         LogHandler.WriteMessage("Checking availability of Animation Data Application");

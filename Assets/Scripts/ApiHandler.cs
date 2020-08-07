@@ -51,6 +51,22 @@ public class ApiHandler : MonoBehaviour
         return await result.Content.ReadAsStringAsync();
     }
 
+    public static async Task<string> StopAnimation()
+    {
+        var answer = client.GetAsync("animation?key=stop");
+        var result = answer.Result;
+        result.EnsureSuccessStatusCode();
+        return await result.Content.ReadAsStringAsync();
+    }
+
+    public static async Task<string> ContinueAnimation()
+    {
+        var answer = client.GetAsync("animation?key=continue");
+        var result = answer.Result;
+        result.EnsureSuccessStatusCode();
+        return await result.Content.ReadAsStringAsync();
+    }
+
     public static void CheckAnimationDataAvailability()
     {
         using (var client = new HttpClient() { BaseAddress = ApiUri })
