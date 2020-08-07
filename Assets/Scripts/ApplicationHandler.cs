@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ApplicationHandler : MonoBehaviour
 {
@@ -45,7 +46,15 @@ public class ApplicationHandler : MonoBehaviour
 
     public void Load()
     {
+        var animationsDropdown = GameObject.Find("animationsDropdown").GetComponent<Dropdown>();
+        var selectedAnimation = animationsDropdown.value;
+        var animationInformation = AnimationsHandler.AnimationSummary[animationsDropdown.options[selectedAnimation].text];
+        var initUri = animationInformation.InitUri;
+        var runCommand = animationInformation.RunCommand;
+        Debug.Log(initUri);
         BrowserHandler.StartDisplayDriver();
+        BrowserHandler.StartContentBrowser(initUri);
+        BrowserHandler.ExecuteScriptContentBrowser(runCommand);
     }
 
     

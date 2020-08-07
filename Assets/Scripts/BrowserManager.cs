@@ -74,11 +74,7 @@ public class BrowserManager
         contentBrowser = new ChromeDriver(options);
         contentBrowser.Navigate().GoToUrl("http://localhost/orbitarium.ba/welcome");
 
-        //var wholeWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
-        //var xPos = wholeWidth - PlayerPrefs.GetInt("resy");
-        //var posPoint = new Point(xPos, 0);
-        //contentBrowser.Manage().Window.Position = posPoint;
-        //contentBrowser.Manage().Window.FullScreen();
+        
     }
 
     public void CheckForDisplayDriver()
