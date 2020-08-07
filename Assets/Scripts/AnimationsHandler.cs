@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public class AnimationsHandler : MonoBehaviour
 {
-    public static Dictionary<string, AnimationInformation> animationSummary { get; set; }
+    public static Dictionary<string, AnimationInformation> AnimationSummary { get; set; }
+    public static AnimationInformation CurrentAnimation { get; set; }
     public static Dropdown animationsDropdown = GameObject.Find("animationsDropdown").GetComponent<Dropdown>();
     public static Text animationDescription = GameObject.Find("animationDescription").GetComponent<Text>();
     public static Button loadAnimationButton = GameObject.Find("loadAnimationButton").GetComponent<Button>();
@@ -60,17 +61,17 @@ public class AnimationsHandler : MonoBehaviour
         {
             var summary = JsonConvert.DeserializeObject<Dictionary<string, AnimationInformation>>(summaryString);
             Debug.Log(summary);
-            animationSummary = summary;
+            AnimationSummary = summary;
         }
-        LogHandler.WriteMessage("SUCCESS: Found " + animationSummary.Count + " animations.");
+        LogHandler.WriteMessage("SUCCESS: Found " + AnimationSummary.Count + " animations.");
         LogHandler.DisplayInformation("Animations found. Please select one.", Color.green);
         List<string> animationDropdownList = new List<string>();
-        foreach (var entry in animationSummary)
+        foreach (var entry in AnimationSummary)
         {
             animationDropdownList.Add(entry.Key);
         }
         var firstElement = animationDropdownList[0];
-        var description = animationSummary[firstElement].AnimationDescription;
+        var description = AnimationSummary[firstElement].AnimationDescription;
         animationDescription.text = description;
         animationsDropdown.AddOptions(animationDropdownList);
         animationsDropdown.interactable = true;

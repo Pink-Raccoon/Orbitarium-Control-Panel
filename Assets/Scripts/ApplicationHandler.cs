@@ -49,11 +49,17 @@ public class ApplicationHandler : MonoBehaviour
         var animationsDropdown = GameObject.Find("animationsDropdown").GetComponent<Dropdown>();
         var selectedAnimation = animationsDropdown.value;
         var animationInformation = AnimationsHandler.AnimationSummary[animationsDropdown.options[selectedAnimation].text];
+        AnimationsHandler.CurrentAnimation = animationInformation;
         var initUri = animationInformation.InitUri;
         var runCommand = animationInformation.RunCommand;
         Debug.Log(initUri);
         BrowserHandler.StartDisplayDriver();
         BrowserHandler.StartContentBrowser(initUri);
+    }
+
+    public void StartAnimation()
+    {
+        var runCommand = AnimationsHandler.CurrentAnimation.RunCommand;
         BrowserHandler.ExecuteScriptContentBrowser(runCommand);
     }
 
