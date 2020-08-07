@@ -63,7 +63,7 @@
 				float y = log(tan(PI / 4. + coord.y / 2.));
 
 				x = x / (PI * 2);
-				y = (y + PI) / (PI * 2);
+				y = (y + PI) / (PI * 2.1);
 
 				fixed4 col = tex2D(_MainTex, float2(x,y));
 

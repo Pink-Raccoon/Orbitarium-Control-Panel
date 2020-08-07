@@ -57,5 +57,13 @@ public class ApplicationHandler : MonoBehaviour
         BrowserHandler.ExecuteScriptContentBrowser(runCommand);
     }
 
-    
+    public void StopAnimation()
+    {
+        AnimationsHandler.StopAnimation();
+    }
+
+    public void ContinueAnimation()
+    {
+        AnimationsHandler.ContinueAnimation();
+    }
 }
