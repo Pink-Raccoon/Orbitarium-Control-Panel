@@ -1,0 +1,14 @@
+Beamer-Abmessungen
+
+Breite: 54cm
+Höhe: 25cm
+Tiefe: 32cm
+Projektion (Von Innenseite des Gestelles her, von links): 13.5cm
+Projektion (Von Innenseite des Gestelles her, von unten): 13cm
+
+
+Spiegelfläche (breite): 7cm
+Spiegelfläche (höhe): 5.5cm
+
+
+Linsendurchmesser (Projektor): 12cm
