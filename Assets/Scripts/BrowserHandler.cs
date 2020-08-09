@@ -77,6 +77,10 @@ public class BrowserHandler : MonoBehaviour
 
     public static void StartContentBrowser(string startUri)
     {
+        if(DisplayBrowser != null)
+        {
+            DisplayBrowser.Close();
+        }
         //hide command line used to start browser
         var driverService = ChromeDriverService.CreateDefaultService();
         driverService.HideCommandPromptWindow = true;
