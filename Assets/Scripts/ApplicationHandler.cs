@@ -52,7 +52,6 @@ public class ApplicationHandler : MonoBehaviour
         AnimationsHandler.CurrentAnimation = animationInformation;
         var initUri = animationInformation.InitUri;
         var runCommand = animationInformation.RunCommand;
-        Debug.Log(initUri);
         BrowserHandler.StartDisplayDriver();
         BrowserHandler.StartContentBrowser(initUri);
     }

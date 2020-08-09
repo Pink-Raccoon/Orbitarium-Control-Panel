@@ -57,6 +57,10 @@ public class SettingsHandler : MonoBehaviour
             return;
         }
         ApplySettingsToInternalObjects();
+        if (AnimationsHandler.CheckAnimationDataAvailability())
+        {
+            AnimationsHandler.GetAnimationsSummary();
+        }
     }
 
     private string GetUri(string uriString)
