@@ -55,6 +55,7 @@ public class ApplicationHandler : MonoBehaviour
         AnimationsHandler.StopAnimation();
         BrowserHandler.StartDisplayDriver();
         BrowserHandler.StartContentBrowser(initUri);
+        LogHandler.WriteMessage("Please start ManyCam and choose the Desktop displaying the Animation.");
     }
 
     public void StartAnimation()

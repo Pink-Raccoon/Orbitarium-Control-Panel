@@ -152,8 +152,8 @@ public class RenderHandler : MonoBehaviour
         var displays = Display.displays;
         var resX = PlayerPrefs.GetInt("resX");
         var resY = PlayerPrefs.GetInt("resY");
+        displays[1].Activate(resX, resY, 60);
         displays[2].Activate(resX, resY, 60);
-        displays[3].Activate(resX, resY, 60);
         //Activate Display 2 and 3 for projector 1 and 2
         //for (int i = 0; i< displays.Length; i++)
         //{

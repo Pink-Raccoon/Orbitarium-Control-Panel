@@ -2808,7 +2808,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 2
+  m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -5927,7 +5927,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 3
+  m_TargetDisplay: 2
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -6216,7 +6216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -125.33, y: -123}
+  m_AnchoredPosition: {x: 129, y: -125}
   m_SizeDelta: {x: 225.64655, y: 48.285767}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1243019927
@@ -7483,7 +7483,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 105.67, y: -123}
+  m_AnchoredPosition: {x: -124, y: -125}
   m_SizeDelta: {x: 225.6465, y: 48.28607}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1494830413
@@ -8620,6 +8620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 0
+  mainSlider: {fileID: 1258188587}
 --- !u!1 &1683029767
 GameObject:
   m_ObjectHideFlags: 0
