@@ -74,8 +74,17 @@ public class AnimationsHandler : MonoBehaviour
         var description = AnimationSummary[firstElement].AnimationDescription;
         animationDescription.text = description;
         animationsDropdown.AddOptions(animationDropdownList);
+        animationsDropdown.onValueChanged.AddListener(delegate {
+            DropdownValueChanged(animationsDropdown);
+        });
         animationsDropdown.interactable = true;
         loadAnimationButton.interactable = true;
+    }
+
+    static void DropdownValueChanged(Dropdown change)
+    {
+        var element = change.value;
+        animationDescription.text = AnimationSummary[animationsDropdown.options[element].text].AnimationDescription;
     }
 
     public static async void StopAnimation() {
