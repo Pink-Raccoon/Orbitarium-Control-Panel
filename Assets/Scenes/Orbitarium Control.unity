@@ -1232,6 +1232,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &151953303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2193,6 +2194,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &365095824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3351,6 +3353,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &525249790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4001,6 +4004,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &726503590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5140,6 +5144,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &980183440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8081,7 +8086,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 701804400}
   m_Direction: 2
   m_Value: 1.0000002
-  m_Size: 0.34311408
+  m_Size: 0.34311405
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9068,6 +9073,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &1791293049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11009,6 +11015,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+  m_ShouldActivateOnSelect: 1
 --- !u!114 &2136651364
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -95,17 +95,4 @@ public class BrowserHandler : MonoBehaviour
         ContentBrowser.Manage().Window.Position = posPoint;
         ContentBrowser.Manage().Window.FullScreen();
     }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

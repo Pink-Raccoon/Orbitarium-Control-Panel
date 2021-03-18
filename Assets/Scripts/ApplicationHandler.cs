@@ -38,12 +38,6 @@ public class ApplicationHandler : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Load()
     {
         var animationsDropdown = GameObject.Find("animationsDropdown").GetComponent<Dropdown>();

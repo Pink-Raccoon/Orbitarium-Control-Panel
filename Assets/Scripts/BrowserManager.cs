@@ -72,9 +72,7 @@ public class BrowserManager
         options.AddExcludedArgument("enable-automation");
         options.AddAdditionalCapability("useAutomationExtension", false);
         contentBrowser = new ChromeDriver(options);
-        contentBrowser.Navigate().GoToUrl("http://localhost/orbitarium.ba/welcome");
-
-        
+        contentBrowser.Navigate().GoToUrl("http://localhost/orbitarium.ba/welcome");        
     }
 
     public void CheckForDisplayDriver()

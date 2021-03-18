@@ -41,15 +41,17 @@ public class RenderHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Todo: 1. Überflüssige schwarze Balken wegschneiden ( PlayerPrefs.GetInt("inputResX", inputResX);)
-        if (rendering)
-        {
-            color = inputFeedTexture.GetPixels(pixelsToCut, 0, inputResY, inputResY);
-            texture.SetPixels(color);
-            texture.Apply();
-            //inputImage.texture = texture;
-            transformedImage.texture = texture;
-        }
+        // THIS CAUSES PERFORMANCE ISSUES
+
+        //// Todo: 1.Überflüssige schwarze Balken wegschneiden(PlayerPrefs.GetInt("inputResX", inputResX);)
+        //if (rendering)
+        //{
+        //    color = inputFeedTexture.GetPixels(pixelsToCut, 0, inputResY, inputResY);
+        //    texture.SetPixels(color);
+        //    texture.Apply();
+        //    //inputImage.texture = texture;
+        //    transformedImage.texture = texture;
+        //}
     }
 
     void OnEnable()
@@ -197,13 +199,16 @@ public class RenderHandler : MonoBehaviour
         LogHandler.WriteMessage("ManyCam found!");
         //getting cam feed of manycam
         inputFeedTexture = new WebCamTexture(devices[manyCamId].name, PlayerPrefs.GetInt("inputResX"), PlayerPrefs.GetInt("inputResY"));
+        inputFeedTexture.Play();
 
 
         //inputImage.texture = tex;
         //transformedImage.texture = tex;
 
-        inputFeedTexture.Play();
+        // PREFERRED WAY OF DOING WBCAM
+        transformedImage.texture = inputFeedTexture;
         rendering = true;
+
         //Debug.Log(inputFeedTexture.GetPixels().Length);
     }
 

@@ -15,17 +15,6 @@ public class SettingsHandler : MonoBehaviour
                 { "apiUri", "uri of animation data application"}
             };
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void SaveSettings()
     {
         try

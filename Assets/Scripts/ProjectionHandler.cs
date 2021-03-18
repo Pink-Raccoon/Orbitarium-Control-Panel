@@ -20,12 +20,6 @@ public class ProjectionHandler : MonoBehaviour
         projectorCamera2preview = GameObject.Find("projectorpreview2").GetComponent<Camera>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AdjustProjection(string action)
     {
         var projectorString = GameObject.Find("forProjector").GetComponent<InputField>().text;
