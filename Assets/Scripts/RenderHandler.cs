@@ -54,16 +54,6 @@ public class RenderHandler : MonoBehaviour
         //}
     }
 
-    void OnEnable()
-    {
-        
-    }
-
-    void OnDisable()
-    {
-        
-    }
-
     public void EnableRendering()
     {
         Debug.Log("rendering enabled");
@@ -113,6 +103,10 @@ public class RenderHandler : MonoBehaviour
         var transformedImageSize = new Vector2(resX, resX);
         transformedImage.rectTransform.position = transformedImagePosition;
         transformedImage.rectTransform.sizeDelta = transformedImageSize;
+
+        //setting shader
+        transformedImage.material.SetFloat("_InputX", PlayerPrefs.GetInt("inputResX"));
+        transformedImage.material.SetFloat("_InputY", PlayerPrefs.GetInt("inputResY"));
 
         //set aspect for projection cameras
         var aspectX = Convert.ToSingle(PlayerPrefs.GetInt("aspectX"));

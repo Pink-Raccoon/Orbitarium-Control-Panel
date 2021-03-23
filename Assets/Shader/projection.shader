@@ -3,6 +3,8 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _InputX("InputX", Float) = 0
+        _InputY("InputY", Float) = 0
     }
     SubShader
     {
@@ -31,6 +33,8 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float _InputX;
+            float _InputY;
 
             v2f vert (appdata v)
             {
@@ -54,7 +58,17 @@
 				return float2(lat, lon);
 			}
 
-            fixed4 frag (v2f i) : SV_Target	
+            float CutPixels(float x) {
+                // cut left and right border (this should do the same thing as the commented out code in RenderHandler.Update();
+                float pixelsToCut = (_InputX - _InputY) / 2;
+                float factor = (_InputY - pixelsToCut * 2) / (_InputY);
+
+                return (pixelsToCut / (_InputX + pixelsToCut)) - 0.008f + x * (factor + 0.0175f);
+
+                /*return x;*/
+            }
+
+            fixed4 frag(v2f i) : SV_Target
             {
 				float2 coord = azimuthalToEquirectangular(i.uv);
 
@@ -65,7 +79,7 @@
 				x = x / (PI * 2);
 				y = (y + PI) / (PI * 2.1);
 
-				fixed4 col = tex2D(_MainTex, float2(x,y));
+				fixed4 col = tex2D(_MainTex, float2(CutPixels(x),y));
 
 				// everything outside our projections sould be white
 				col = length(i.uv * 2 - 1) > 1 ? 1 : col;
