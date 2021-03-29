@@ -3,9 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class RenderHandler : MonoBehaviour
 {
+    public VideoScrub slider;
+    public RenderTexture VideoRenderTexture;
+
     bool rendering = false;
     private RawImage inputImage;
     private RawImage transformedImage;
@@ -16,7 +20,7 @@ public class RenderHandler : MonoBehaviour
     private Camera projectorCamera2preview;
     private SettingsHandler settingsHandler;
     private WebCamTexture inputFeedTexture;
-    private Texture2D texture;
+    private VideoPlayer videoPlayer;
     int pixelsToCut;
     int inputResY;
     Color[] color;
@@ -32,7 +36,7 @@ public class RenderHandler : MonoBehaviour
         projectorCamera2 = GameObject.Find("projector2").GetComponent<Camera>();
         projectorCamera1preview = GameObject.Find("projectorpreview1").GetComponent<Camera>();
         projectorCamera2preview = GameObject.Find("projectorpreview2").GetComponent<Camera>();
-        texture = new Texture2D(PlayerPrefs.GetInt("inputResY"), PlayerPrefs.GetInt("inputResY"));
+        // texture = new Texture2D(PlayerPrefs.GetInt("inputResY"), PlayerPrefs.GetInt("inputResY"));
         pixelsToCut = (int)(PlayerPrefs.GetInt("inputResX") - PlayerPrefs.GetInt("inputResY")) / 2;
         inputResY = PlayerPrefs.GetInt("inputResY");
 
@@ -172,6 +176,45 @@ public class RenderHandler : MonoBehaviour
         //manyCamProc.Start();
         //manyCamProc.WaitForInputIdle();
         //log.LogWrite("ManyCam successfully started. Please configure it.");
+    }
+
+    public void RenderVideo(string path)
+    {
+        videoPlayer = (VideoPlayer)transformedImage.gameObject.AddComponent(typeof(VideoPlayer));
+        videoPlayer.url = path;
+        videoPlayer.targetTexture = VideoRenderTexture;
+        transformedImage.texture = VideoRenderTexture;
+
+        slider.VideoPlayer = videoPlayer;
+        videoPlayer.Play();
+    }
+
+    public void PlayPauseVideo()
+    {
+        if (videoPlayer.isPaused)
+        {
+            videoPlayer.Play();
+        } else
+        {
+            videoPlayer.Pause();
+        }
+    }
+
+    public void Backward()
+    {
+        videoPlayer.Pause();
+        videoPlayer.frame -= 50;
+    }
+
+    public void Forward()
+    {
+        videoPlayer.Pause();
+        videoPlayer.frame += 50;
+    }
+
+    public void Loop()
+    {
+        videoPlayer.isLooping = !videoPlayer.isLooping;
     }
 
     public void RenderManyCam()

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ApplicationHandler : MonoBehaviour
 {
-    private GameObject renderHandler;
+    public Text SelectedVideo;
+
+    private RenderHandler renderHandler;
+    private string videoPath;
 
     //called before start
     void Awake()
@@ -16,7 +20,7 @@ public class ApplicationHandler : MonoBehaviour
         LogHandler.WriteMessage("Begin initialization");
         var settingsHandler = GameObject.Find("ApplicationHandlerObject").GetComponent<SettingsHandler>();
         settingsHandler.LoadSettings();
-        //renderHandler = GameObject.Find("RenderingObject");
+        renderHandler = GameObject.Find("RenderingObject").GetComponent<RenderHandler>();
         //renderHandler.SetActive(false);
         //renderHandler.SetActive(true);
     }
@@ -50,6 +54,40 @@ public class ApplicationHandler : MonoBehaviour
         BrowserHandler.StartDisplayDriver();
         BrowserHandler.StartContentBrowser(initUri);
         LogHandler.WriteMessage("Please start ManyCam and choose the Desktop displaying the Animation.");
+    }
+    
+    public void SelectVideo()
+    {
+        videoPath = EditorUtility.OpenFilePanel("Select Video", "", "*");
+        SelectedVideo.text = videoPath;
+    }
+
+    public void StartVideo()
+    {
+        if (videoPath.Length != 0)
+        {
+            renderHandler.RenderVideo(videoPath);
+        }
+    }
+
+    public void PlayPauseVideo()
+    {
+        renderHandler.PlayPauseVideo();
+    }
+
+    public void Backward()
+    {
+        renderHandler.Backward();
+    }
+
+    public void Forward()
+    {
+        renderHandler.Forward();
+    }
+
+    public void Loop()
+    {
+        renderHandler.Loop();
     }
 
     public void StartAnimation()
