@@ -9,6 +9,13 @@ public class ApplicationHandler : MonoBehaviour
 {
     public Text SelectedVideo;
 
+    public Image PlayPauseButtonImage;
+    public Sprite PlayButton;
+    public Sprite PauseButton;
+    private bool isPlaying;
+
+    public Slider OverlappingSlider;
+
     private RenderHandler renderHandler;
     private string videoPath;
 
@@ -72,7 +79,17 @@ public class ApplicationHandler : MonoBehaviour
 
     public void PlayPauseVideo()
     {
-        renderHandler.PlayPauseVideo();
+        isPlaying = renderHandler.PlayPauseVideo();
+
+        if (isPlaying)
+        {
+            PlayPauseButtonImage.sprite = PauseButton;
+        } 
+        else
+        {
+            PlayPauseButtonImage.sprite = PlayButton;
+        }
+
     }
 
     public void Backward()
@@ -90,6 +107,11 @@ public class ApplicationHandler : MonoBehaviour
         renderHandler.Loop();
     }
 
+    public void ToggleIsSquare()
+    {
+        renderHandler.ToggleIsSquare();
+    }
+
     public void StartAnimation()
     {
         var runCommand = AnimationsHandler.CurrentAnimation.RunCommand;
@@ -104,5 +126,10 @@ public class ApplicationHandler : MonoBehaviour
     public void ContinueAnimation()
     {
         AnimationsHandler.ContinueAnimation();
+    }
+    public void OnOverlappingChanged()
+    {
+        float value = OverlappingSlider.value;
+        renderHandler.AdjustOverlapping(value);
     }
 }

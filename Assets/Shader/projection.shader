@@ -5,6 +5,7 @@
         _MainTex ("Texture", 2D) = "white" {}
         _InputX("InputX", Float) = 0
         _InputY("InputY", Float) = 0
+        _IsSquare("IsSquare", Int) = 0
     }
     SubShader
     {
@@ -35,6 +36,7 @@
             float4 _MainTex_ST;
             float _InputX;
             float _InputY;
+            int _IsSquare;
 
             v2f vert (appdata v)
             {
@@ -60,10 +62,13 @@
 
             float CutPixels(float x) {
                 // cut left and right border (this should do the same thing as the commented out code in RenderHandler.Update();
-                /*float pixelsToCut = (_InputX - _InputY) / 2;
-                float factor = (_InputY - pixelsToCut * 2) / (_InputY);
+                if (_IsSquare == 0) 
+                {
+                    float pixelsToCut = (_InputX - _InputY) / 2;
+                    float factor = _InputY / _InputX;
 
-                return (pixelsToCut / (_InputX + pixelsToCut)) - 0.008f + x * (factor + 0.0175f);*/
+                    return (pixelsToCut / _InputX) + x * (factor);
+                }
 
                 return x;
             }

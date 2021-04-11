@@ -19,8 +19,15 @@ public class RenderHandler : MonoBehaviour
     private Camera projectorCamera1preview;
     private Camera projectorCamera2preview;
     private SettingsHandler settingsHandler;
+
     private WebCamTexture inputFeedTexture;
+
     private VideoPlayer videoPlayer;
+    private bool isSquare;
+
+    private float cam1y;
+    private float cam2y;
+
     int pixelsToCut;
     int inputResY;
     Color[] color;
@@ -77,7 +84,7 @@ public class RenderHandler : MonoBehaviour
         //setting aspect ratio
         inputCamera.aspect = Convert.ToSingle(inputResX) / Convert.ToSingle(inputResY);
         var inputImagePosition = new Vector3(4000, 0, -1000);
-        var inputImageSize = new Vector2(inputResY, inputResY);
+        var inputImageSize = new Vector2(inputResX, inputResY);
         //setting image position
         inputImage.rectTransform.position = inputImagePosition;
         //setting image size
@@ -111,6 +118,7 @@ public class RenderHandler : MonoBehaviour
         //setting shader
         transformedImage.material.SetFloat("_InputX", PlayerPrefs.GetInt("inputResX"));
         transformedImage.material.SetFloat("_InputY", PlayerPrefs.GetInt("inputResY"));
+        SetIsSquare();
 
         //set aspect for projection cameras
         var aspectX = Convert.ToSingle(PlayerPrefs.GetInt("aspectX"));
@@ -125,8 +133,8 @@ public class RenderHandler : MonoBehaviour
         var camDistance = 1000;
         var camerasX = transformedImage.rectTransform.position.x;
         var camerasZ = transformedImage.rectTransform.position.z - camDistance;
-        var cam1y = transformedImage.rectTransform.position.y + transformedImage.rectTransform.sizeDelta.y / 2 - resY / 2;
-        var cam2y = transformedImage.rectTransform.position.y - transformedImage.rectTransform.sizeDelta.y / 2 + resY / 2;
+        cam1y = transformedImage.rectTransform.position.y + transformedImage.rectTransform.sizeDelta.y / 2 - resY / 2;
+        cam2y = transformedImage.rectTransform.position.y - transformedImage.rectTransform.sizeDelta.y / 2 + resY / 2;
         var cam1position = new Vector3(camerasX, cam1y, camerasZ);
         var cam2position = new Vector3(camerasX, cam2y, camerasZ);
         projectorCamera1.transform.position = cam1position;
@@ -180,41 +188,73 @@ public class RenderHandler : MonoBehaviour
 
     public void RenderVideo(string path)
     {
-        videoPlayer = (VideoPlayer)transformedImage.gameObject.AddComponent(typeof(VideoPlayer));
+        if (videoPlayer == null)
+        {
+            videoPlayer = (VideoPlayer)transformedImage.gameObject.AddComponent(typeof(VideoPlayer));
+        }
+
         videoPlayer.url = path;
         videoPlayer.targetTexture = VideoRenderTexture;
         transformedImage.texture = VideoRenderTexture;
+        // assign the preview
+        inputImage.texture = VideoRenderTexture;
 
         slider.VideoPlayer = videoPlayer;
-        videoPlayer.Play();
+        videoPlayer.Pause();
     }
 
-    public void PlayPauseVideo()
+    public bool PlayPauseVideo()
     {
         if (videoPlayer.isPaused)
         {
             videoPlayer.Play();
-        } else
-        {
-            videoPlayer.Pause();
-        }
+            return true;
+        } 
+
+        videoPlayer.Pause();
+        return false;
     }
 
     public void Backward()
     {
-        videoPlayer.Pause();
         videoPlayer.frame -= 50;
     }
 
     public void Forward()
     {
-        videoPlayer.Pause();
         videoPlayer.frame += 50;
     }
 
     public void Loop()
     {
         videoPlayer.isLooping = !videoPlayer.isLooping;
+    }
+
+    public void ToggleIsSquare()
+    {
+        isSquare = !isSquare;
+        SetIsSquare();
+    }
+
+    public void SetIsSquare()
+    {
+        transformedImage.material.SetInt("_IsSquare", isSquare ? 1 : 0);
+    }
+
+    public void AdjustOverlapping(float value)
+    {
+        var cam1position = new Vector3(projectorCamera1.transform.position.x, cam1y, projectorCamera1.transform.position.z);
+        var cam2position = new Vector3(projectorCamera2.transform.position.x, cam2y, projectorCamera2.transform.position.z);
+
+        float camOffset = value;
+
+        cam1position.y += camOffset;
+        cam2position.y -= camOffset;
+
+        projectorCamera1.transform.position = cam1position;
+        projectorCamera2.transform.position = cam2position;
+        projectorCamera1preview.transform.position = cam1position;
+        projectorCamera2preview.transform.position = cam2position;
     }
 
     public void RenderManyCam()
@@ -242,8 +282,10 @@ public class RenderHandler : MonoBehaviour
         //inputImage.texture = tex;
         //transformedImage.texture = tex;
 
-        // PREFERRED WAY OF DOING WBCAM
+        // Assign the webCam texture
         transformedImage.texture = inputFeedTexture;
+        // assign the preview
+        inputImage.texture = inputFeedTexture;
         rendering = true;
 
         //Debug.Log(inputFeedTexture.GetPixels().Length);

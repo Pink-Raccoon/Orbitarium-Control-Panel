@@ -12,11 +12,13 @@ public class VideoScrub : MonoBehaviour
 
     public void OnSliderValueChanged()
     {
-        float value = slider.value;
-        if (VideoPlayer != null && VideoPlayer.frameCount > 0)
+        if (VideoPlayer != null && VideoPlayer.frameCount > 0 && VideoPlayer.isPaused)
         {
-            VideoPlayer.frame = (long)(VideoPlayer.frameCount * value);
-            Debug.Log(VideoPlayer.frame);
+            float value = slider.value;
+            if (VideoPlayer != null && VideoPlayer.frameCount > 0)
+            {
+                VideoPlayer.frame = (long)(VideoPlayer.frameCount * value);
+            }
         }
     }
 
