@@ -47,6 +47,8 @@ public class RenderHandler : MonoBehaviour
         pixelsToCut = (int)(PlayerPrefs.GetInt("inputResX") - PlayerPrefs.GetInt("inputResY")) / 2;
         inputResY = PlayerPrefs.GetInt("inputResY");
 
+        float camOffset = PlayerPrefs.GetFloat("OverlappingOffset");
+        AdjustOverlapping(camOffset);
     }
 
     // Update is called once per frame
@@ -255,6 +257,8 @@ public class RenderHandler : MonoBehaviour
         projectorCamera2.transform.position = cam2position;
         projectorCamera1preview.transform.position = cam1position;
         projectorCamera2preview.transform.position = cam2position;
+
+        PlayerPrefs.SetFloat("OverlappingOffset", camOffset);
     }
 
     public void RenderManyCam()

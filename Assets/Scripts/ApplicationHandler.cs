@@ -36,6 +36,9 @@ public class ApplicationHandler : MonoBehaviour
     void Start()
     {
         InitializeApplication();
+
+        float camOffset = PlayerPrefs.GetFloat("OverlappingOffset");
+        OverlappingSlider.value = camOffset;
     }
 
     private void InitializeApplication()
