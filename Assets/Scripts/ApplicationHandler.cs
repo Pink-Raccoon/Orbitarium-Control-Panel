@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -68,8 +65,11 @@ public class ApplicationHandler : MonoBehaviour
     
     public void SelectVideo()
     {
-        videoPath = EditorUtility.OpenFilePanel("Select Video", "", "*");
-        SelectedVideo.text = videoPath;
+        SimpleFileBrowser.FileBrowser.ShowLoadDialog((string[] paths) =>
+        {
+            videoPath = paths[0];
+            SelectedVideo.text = videoPath;
+        }, null, SimpleFileBrowser.FileBrowser.PickMode.Files, false, null, null, "Select Video");
     }
 
     public void StartVideo()

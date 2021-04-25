@@ -66,7 +66,7 @@ Material:
     - _GlossyReflections: 1
     - _InputX: 3840
     - _InputY: 2160
-    - _IsSquare: 1
+    - _IsSquare: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
