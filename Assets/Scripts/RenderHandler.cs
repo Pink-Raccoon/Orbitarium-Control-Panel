@@ -264,22 +264,22 @@ public class RenderHandler : MonoBehaviour
     public void RenderManyCam()
     {
         WebCamDevice[] devices = WebCamTexture.devices;
-        int manyCamId = -1;
-        //search for manycam
+        int virtualCamId = -1;
+        //search for virtualcam
         for (int i = 0; i < devices.Length; i++)
         {
-            if (devices[i].name.ToLower().Contains("manycam"))
+            if (devices[i].name.ToLower().Contains("obs-"))
             {
-                manyCamId = i;
+                virtualCamId = i;
             }
         }
-        if (manyCamId == -1)
+        if (virtualCamId == -1)
         {
-            throw new Exception("ManyCam not found! Please install ManyCam");
+            throw new Exception("Virtualcam not found! Please install OBS-Studio and its virtualcam-addon");
         }
-        LogHandler.WriteMessage("ManyCam found!");
-        //getting cam feed of manycam
-        inputFeedTexture = new WebCamTexture(devices[manyCamId].name, PlayerPrefs.GetInt("inputResX"), PlayerPrefs.GetInt("inputResY"));
+        LogHandler.WriteMessage("Virtualcam found!");
+        //getting cam feed of virtualcam
+        inputFeedTexture = new WebCamTexture(devices[virtualCamId].name, PlayerPrefs.GetInt("inputResX"), PlayerPrefs.GetInt("inputResY"));
         inputFeedTexture.Play();
 
 
