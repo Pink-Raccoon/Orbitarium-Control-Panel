@@ -23,7 +23,7 @@ public class RenderHandler : MonoBehaviour
     private WebCamTexture inputFeedTexture;
 
     private VideoPlayer videoPlayer;
-    private bool isSquare;
+    private bool isSquare = false;
 
     private float cam1y;
     private float cam2y;
@@ -186,6 +186,13 @@ public class RenderHandler : MonoBehaviour
         //manyCamProc.Start();
         //manyCamProc.WaitForInputIdle();
         //log.LogWrite("ManyCam successfully started. Please configure it.");
+    }
+
+    public void RenderCo2(RenderTexture renderTexture)
+    {
+        transformedImage.texture = renderTexture;
+        // assign the preview
+        inputImage.texture = renderTexture;
     }
 
     public void RenderVideo(string path)

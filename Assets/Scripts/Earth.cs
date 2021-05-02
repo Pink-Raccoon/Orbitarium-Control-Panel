@@ -1,37 +1,26 @@
 using System;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Earth : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-	{
+	public Glaciers Glaciers;
+	public Text TempText;
+	public Text SeaLevelText;
+	public Text YearText;
 
-	}
-
-    // Update is called once per frame
-    void FixedUpdate()
-	{
-		try
-		{
-			calcTemp();
-			year += 10;
-			update();
-		}
-		catch (Exception e)
-		{
-			e.ToString();
-		}
-	}
-
+	public RenderTexture RenderTexture;
+	private bool IsPlaying = false;
+	// Rendering
+	private Material mat;
+	// Textures
+	private TextureLoader textureLoader;
 
 	private double ppm; // CO2 contingent [0..1000]
 	private double eqTemp; // equilibrium temperature
 	private double actTemp; // actual temperature
 	private double actAlbedo; // actual albedo
 	private double actClouds;
-	private Glaciers glaciers;
 	private const double ALLCLOUDS = 65; // temp whole sky with clouds
 	private const double EVAPORATION = 0.2;
 	private const double ALBEDOCLOUD = 0.7;
@@ -46,12 +35,53 @@ public class Earth : MonoBehaviour
 	public delegate void OnVariableChangeDelegate(double newVal);
 	public event OnVariableChangeDelegate OnVariableChange;
 
-	public Earth()
+	public void Start()
 	{
-		glaciers = new Glaciers();
 		reset();
-		glaciers.reset();
+		Glaciers.reset();
+
 		//props = new PropertyChangeSupport(this);
+		mat = new Material(Shader.Find("Co2Shader"));
+		textureLoader = new TextureLoader();
+		textureLoader.earthModel = this;
+		textureLoader.loadTextures();
+	}
+
+	// Update is called once per frame
+	void FixedUpdate()
+	{
+		if (!IsPlaying)
+		{
+			return;
+		}
+
+		try
+		{
+			calcTemp();
+			year += 10;
+
+			// Update GUI
+			TempText.text = Decimal.Round((Decimal)getTemp(), 2).ToString();
+			SeaLevelText.text = Decimal.Round((Decimal)getSeaLevel(), 2).ToString();
+			YearText.text = year.ToString();
+
+			// Render
+			textureLoader.ComputeTextures();
+
+			mat.SetTexture("_Texture2", TextureLoader.images[textureLoader.lastHigherKey]);
+			mat.SetFloat("_Alpha", textureLoader.lastAlpha);
+
+			Graphics.Blit(TextureLoader.images[textureLoader.lastLowerKey], RenderTexture, mat);
+		}
+		catch (Exception e)
+		{
+			LogHandler.WriteMessage(e.ToString());
+		}
+	}
+
+	public void PlayPause()
+	{
+		IsPlaying = !IsPlaying;
 	}
 
 	public void setPpm(double v)
@@ -64,9 +94,9 @@ public class Earth : MonoBehaviour
 	{
 		// reflected at the clouds
 		double powerGround = POWERSUN * (1 - getClouds() * ALBEDOCLOUD);
-		double ground = 1 - glaciers.getGlaciers();
+		double ground = 1 - Glaciers.getGlaciers();
 		// reflected at ground
-		powerGround *= ground * (1 - ALBEDOGROUND) + glaciers.getGlaciers() * (1 - Glaciers.ALBEDOICE);
+		powerGround *= ground * (1 - ALBEDOGROUND) + Glaciers.getGlaciers() * (1 - Glaciers.ALBEDOICE);
 		return round2(powerGround);
 	}
 
@@ -88,7 +118,7 @@ public class Earth : MonoBehaviour
 		double a = .1028563200e-2;
 		double b = .2134268641e-1;
 		double c = .8099935203e-1;
-		double openSea = 1 - glaciers.getGlaciers();
+		double openSea = 1 - Glaciers.getGlaciers();
 		if (actTemp <= Glaciers.ALLFREEZE) actClouds = 0;
 		else if (actTemp >= ALLCLOUDS) actClouds = 1;
 		else
@@ -118,14 +148,14 @@ public class Earth : MonoBehaviour
 		double b = -1831.972789;
 		double c = -242.5850340;
 		double d = 80.0;
-		double g = glaciers.getGlaciers();
+		double g = Glaciers.getGlaciers();
 		return Math.Max(-600, a * g * g * g + b * g * g + c * g + d);
 	}
 
 
 	public double getGlaciers()
 	{
-		return glaciers.getGlaciers();
+		return Glaciers.getGlaciers();
 	}
 
 	public int getYear()
@@ -139,7 +169,7 @@ public class Earth : MonoBehaviour
 		actTemp = 14;
 		ppm = 280;
 		year = 1870;
-		glaciers.reset();
+		Glaciers.reset();
 	}
 
 	private void update()
@@ -211,7 +241,7 @@ public class Earth : MonoBehaviour
 		calcClouds();
 		if (this.year % 500 == 0)
 		{
-			glaciers.setTemp(actTemp);
+			Glaciers.setTemp(actTemp);
 		}
 	}
 

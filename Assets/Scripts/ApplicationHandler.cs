@@ -12,6 +12,9 @@ public class ApplicationHandler : MonoBehaviour
     private bool isPlaying;
 
     public Slider OverlappingSlider;
+    public Slider Co2Slider;
+    public Text Co2AmountText;
+    public Earth Earth;
 
     private RenderHandler renderHandler;
     private string videoPath;
@@ -19,7 +22,6 @@ public class ApplicationHandler : MonoBehaviour
     //called before start
     void Awake()
     {
-        Debug.Log("Application started");
         LogHandler.WriteMessage("Application started");
         LogHandler.WriteMessage("Begin initialization");
         var settingsHandler = GameObject.Find("ApplicationHandlerObject").GetComponent<SettingsHandler>();
@@ -130,9 +132,24 @@ public class ApplicationHandler : MonoBehaviour
     {
         AnimationsHandler.ContinueAnimation();
     }
+
     public void OnOverlappingChanged()
     {
         float value = OverlappingSlider.value;
         renderHandler.AdjustOverlapping(value);
+    }
+
+
+    public void OnCo2ValueChanged()
+    {
+        double value = Co2Slider.value;
+        Earth.setPpm(value);
+        Co2AmountText.text = value.ToString();
+    }
+
+    public void PlayPauseCo2Animation()
+    {
+        Earth.PlayPause();
+        renderHandler.RenderCo2(Earth.RenderTexture);
     }
 }
