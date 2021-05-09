@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Earth : MonoBehaviour
 {
+	// Rendering
+	public Material mat;
 	public Glaciers Glaciers;
 	public Text TempText;
 	public Text SeaLevelText;
@@ -11,8 +13,6 @@ public class Earth : MonoBehaviour
 
 	public RenderTexture RenderTexture;
 	private bool IsPlaying = false;
-	// Rendering
-	private Material mat;
 	// Textures
 	private TextureLoader textureLoader;
 
@@ -35,16 +35,21 @@ public class Earth : MonoBehaviour
 	public delegate void OnVariableChangeDelegate(double newVal);
 	public event OnVariableChangeDelegate OnVariableChange;
 
-	public void Start()
+	void Awake()
 	{
-		reset();
-		Glaciers.reset();
+		try
+		{
+			reset();
+			Glaciers.reset();
 
-		//props = new PropertyChangeSupport(this);
-		mat = new Material(Shader.Find("Co2Shader"));
-		textureLoader = new TextureLoader();
-		textureLoader.earthModel = this;
-		textureLoader.loadTextures();
+			textureLoader = new TextureLoader();
+			textureLoader.earthModel = this;
+			textureLoader.loadTextures();
+		}
+		catch (Exception e)
+		{
+			LogHandler.WriteMessage(e.ToString());
+		}
 	}
 
 	// Update is called once per frame
@@ -170,12 +175,6 @@ public class Earth : MonoBehaviour
 		ppm = 280;
 		year = 1870;
 		Glaciers.reset();
-	}
-
-	private void update()
-	{
-		//props.firePropertyChange("temp", -273, actTemp);
-		OnVariableChange(actTemp);
 	}
 
 	public double getTemp() { return actTemp; }

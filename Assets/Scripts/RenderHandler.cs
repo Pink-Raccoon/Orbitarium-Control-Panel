@@ -51,22 +51,6 @@ public class RenderHandler : MonoBehaviour
         AdjustOverlapping(camOffset);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // THIS CAUSES PERFORMANCE ISSUES
-
-        //// Todo: 1.Überflüssige schwarze Balken wegschneiden(PlayerPrefs.GetInt("inputResX", inputResX);)
-        //if (rendering)
-        //{
-        //    color = inputFeedTexture.GetPixels(pixelsToCut, 0, inputResY, inputResY);
-        //    texture.SetPixels(color);
-        //    texture.Apply();
-        //    //inputImage.texture = texture;
-        //    transformedImage.texture = texture;
-        //}
-    }
-
     public void EnableRendering()
     {
         Debug.Log("rendering enabled");

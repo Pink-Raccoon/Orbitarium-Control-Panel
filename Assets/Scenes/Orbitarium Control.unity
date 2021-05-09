@@ -3423,6 +3423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06af6a22194d7541a136f2147fb518b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: 73c0bc8b3e2f674448e2b566d1081121, type: 2}
   Glaciers: {fileID: 377554111}
   TempText: {fileID: 872362439}
   SeaLevelText: {fileID: 2038558833}
@@ -11181,7 +11182,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 701804401}
   m_HandleRect: {fileID: 701804400}
   m_Direction: 2
-  m_Value: 1.0000004
+  m_Value: 1.0000002
   m_Size: 0.34311408
   m_NumberOfSteps: 0
   m_OnValueChanged:
