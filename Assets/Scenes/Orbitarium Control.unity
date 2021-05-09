@@ -1168,7 +1168,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Render ManyCam
+  m_Text: Render OBS
 --- !u!222 &129910498
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10542,8 +10542,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 107659601}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: RenderManyCam
+        m_TargetAssemblyTypeName: RenderHandler, Assembly-CSharp
+        m_MethodName: RenderObs
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

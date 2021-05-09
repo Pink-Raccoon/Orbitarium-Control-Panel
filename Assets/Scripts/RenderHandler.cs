@@ -252,7 +252,7 @@ public class RenderHandler : MonoBehaviour
         PlayerPrefs.SetFloat("OverlappingOffset", camOffset);
     }
 
-    public void RenderManyCam()
+    public void RenderObs()
     {
         WebCamDevice[] devices = WebCamTexture.devices;
         int virtualCamId = -1;
