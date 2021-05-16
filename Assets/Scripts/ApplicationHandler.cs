@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class ApplicationHandler : MonoBehaviour
 {
+    public InputField WebsiteUrlText;
+
     public Text SelectedVideo;
 
     public Image PlayPauseButtonImage;
@@ -38,6 +40,9 @@ public class ApplicationHandler : MonoBehaviour
 
         float camOffset = PlayerPrefs.GetFloat("OverlappingOffset");
         OverlappingSlider.value = camOffset;
+
+        // Setup Website Url for Windy
+        WebsiteUrlText.text = "https://www.windy.com/?21.453,23.159,3";
     }
 
     private void InitializeApplication()
@@ -64,7 +69,16 @@ public class ApplicationHandler : MonoBehaviour
         BrowserHandler.StartContentBrowser(initUri);
         LogHandler.WriteMessage("Please start ManyCam and choose the Desktop displaying the Animation.");
     }
-    
+    public void OpenWebsite()
+    {
+        string initUri = WebsiteUrlText.text;
+
+        AnimationsHandler.StopAnimation();
+        BrowserHandler.StartDisplayDriver();
+        BrowserHandler.StartContentBrowser(initUri);
+        LogHandler.WriteMessage("Please start ManyCam and choose the Desktop displaying the Animation.");
+    }
+
     public void SelectVideo()
     {
         SimpleFileBrowser.FileBrowser.ShowLoadDialog((string[] paths) =>
