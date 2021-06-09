@@ -1947,10 +1947,10 @@ RectTransform:
   m_Father: {fileID: 611696143}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 106, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &162422398
 MonoBehaviour:
@@ -3711,7 +3711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece8a14183b4afa4d98125d9f94c454e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WebsiteUrlText: {fileID: 22740859}
+  WebsiteUrlText: {fileID: 1076347650}
   SelectedVideo: {fileID: 1657528927}
   PlayPauseButtonImage: {fileID: 1474270092}
   PlayButton: {fileID: -5426831249576257281, guid: a8d17e16584c759418efb6829737a8ab,
@@ -5328,7 +5328,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 377554107}
         m_TargetAssemblyTypeName: ApplicationHandler, Assembly-CSharp
-        m_MethodName: StartVideo
+        m_MethodName: OpenWebsite
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
