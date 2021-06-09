@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +20,7 @@ public class ApplicationHandler : MonoBehaviour
 
     private RenderHandler renderHandler;
     private string videoPath;
+    private bool resetPressed;
 
     //called before start
     void Awake()
@@ -156,9 +157,40 @@ public class ApplicationHandler : MonoBehaviour
 
     public void OnCo2ValueChanged()
     {
-        double value = Co2Slider.value;
-        Earth.setPpm(value);
-        Co2AmountText.text = value.ToString();
+        if (!Input.GetJoystickNames().Contains("SideWinder Joystick"))
+        {
+            double value = Co2Slider.value;
+            Earth.setPpm(value);
+            Co2AmountText.text = value.ToString();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (Input.GetJoystickNames().Contains("SideWinder Joystick"))
+        {
+            double joystickValue = Input.GetAxis("Adjust Co2");
+            joystickValue = (joystickValue + 0.5) * 1000;
+            Earth.setPpm(joystickValue);
+            Co2AmountText.text = joystickValue.ToString();
+        }
+
+        if (Input.GetButton("Reset Co2") && !resetPressed)
+        {
+            //Fire once
+            Debug.Log("trigger");
+            resetPressed = true;
+            Earth.reset();
+        }
+        else if (Input.GetButton("Reset Co2") && resetPressed)
+        {
+            //wait after fire reset
+        }
+        else
+        {
+            resetPressed = false;
+        }
+
     }
 
     public void PlayPauseCo2Animation()

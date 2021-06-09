@@ -10717,8 +10717,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
+  m_HorizontalAxis: Adjust Co2
+  m_VerticalAxis: Reset Co2
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
@@ -11869,7 +11869,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 701804400}
   m_Direction: 2
   m_Value: 1.0000002
-  m_Size: 0.34311408
+  m_Size: 0.34311405
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
