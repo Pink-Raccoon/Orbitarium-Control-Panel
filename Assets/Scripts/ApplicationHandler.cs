@@ -21,6 +21,8 @@ public class ApplicationHandler : MonoBehaviour
     private RenderHandler renderHandler;
     private string videoPath;
     private bool resetPressed;
+    private double[] k = { 0, 0.0118, 0.110, 0.250, 0.359, 0.465, 0.596, 0.711, 0.841, 0.940, 1 };
+    private double ppm = 0;
 
     //called before start
     void Awake()
@@ -170,9 +172,18 @@ public class ApplicationHandler : MonoBehaviour
         if (Input.GetJoystickNames().Contains("SideWinder Joystick"))
         {
             double joystickValue = Input.GetAxis("Adjust Co2");
-            joystickValue = (joystickValue + 0.5) * 1000;
-            Earth.setPpm(joystickValue);
-            Co2AmountText.text = joystickValue.ToString();
+            joystickValue = (joystickValue + 0.5); // * 1000; //Braucht es nur wenn man die Berechnung unten nicht macht.
+            
+            //Anpassung für die Skala auf dem Hardware Control Panel
+            for (int i = 1; i <= 10; i++)
+            {
+                if (joystickValue >= k[i - 1] && joystickValue <= k[i])
+                {
+                    ppm = (i - 1) * 100 + (joystickValue - k[i - 1]) * 100 / (k[i] - k[i - 1]);
+                }
+            }
+            Earth.setPpm(ppm);
+            Co2AmountText.text = ppm.ToString();
         }
 
         if (Input.GetButton("Reset Co2") && !resetPressed)
